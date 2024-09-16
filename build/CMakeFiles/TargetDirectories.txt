@@ -1,0 +1,9 @@
+/home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build/CMakeFiles/ensimalloc.dir
+/home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build/CMakeFiles/alloctest.dir
+/home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build/CMakeFiles/check.dir
+/home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build/CMakeFiles/memshell.dir
+/home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build/CMakeFiles/package.dir
+/home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build/CMakeFiles/package_source.dir
+/home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build/CMakeFiles/test.dir
+/home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build/CMakeFiles/edit_cache.dir
+/home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build/CMakeFiles/rebuild_cache.dir

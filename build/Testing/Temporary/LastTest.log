@@ -1,0 +1,34 @@
+Start testing: Mar 06 15:01 CET
+----------------------------------------------------------
+1/1 Testing: AllTestsAllocator
+1/1 Test: AllTestsAllocator
+Command: "/home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build/alloctest"
+Directory: /home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/build
+"AllTestsAllocator" start time: Mar 06 15:01 CET
+Output:
+----------------------------------------------------------
+[==========] Running 12 tests from 4 test suites.
+[----------] Global test environment set-up.
+[----------] 1 test from Mark
+[ RUN      ] Mark.mmix
+[       OK ] Mark.mmix (0 ms)
+[----------] 1 test from Mark (0 ms total)
+
+[----------] 7 tests from Basic
+[ RUN      ] Basic.zero
+[       OK ] Basic.zero (0 ms)
+[ RUN      ] Basic.onetinysmall
+[       OK ] Basic.onetinysmall (0 ms)
+[ RUN      ] Basic.onelargesmall
+[       OK ] Basic.onelargesmall (0 ms)
+[ RUN      ] Basic.onemedium
+alloctest: /home/anass/Documents/studies/2a/sepc/sepc1/ensimag-malloc-master/src/mem_internals.c:80: mark_check_and_get_alloc: Assertion `size == size_last' failed.
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Failed.
+"AllTestsAllocator" end time: Mar 06 15:01 CET
+"AllTestsAllocator" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Mar 06 15:01 CET
