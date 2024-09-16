@@ -1,35 +1,104 @@
-* TP Allocateur mémoire: malloc
-  Ce squelette permet d'implanter un allocateur mémoire virtuelle. Le
-  sujet de TP expliquant le travail est diponible sur
-  http://ensiwiki.ensimag.fr dans [[https://ensiwiki.ensimag.fr/index.php?title=SEPC-S1][la page SEPC Semestre 1]]
+# C-MemAllocator
 
-** TP antécédents
-    - le tp mémoire allocateur physique: first fit, buddy, chainage
-    - le tp mmap
-** Nouveauté par rapport aux TPs précédents
-   - allocateur virtuelle en trois tailles, plus progressif.
-   - une arena par thread
-   - croissance de l'arena par thread en utilisant mmap et une
-     structure =_Thread_local=
-   - récursive doubling pour l'allocation des chunk et du pool principal
-   - très gros (plus 128ko): mmap en direct
-   - très petit pour alloc de moins de 64o, par chunk de 96o
-   - buddy pour le pool principal
-   - marquage des blocs (avant après) pour avoir sa vrai taille
-     - un magic entier
-       - utiliser LCG MMIX de Knuth (64 bits) pour générer la valeur
-         magique à partir de l'addresse utilisée
-	 https://en.wikipedia.org/wiki/Linear_congruential_generator
+C-MemAllocator is a custom memory allocator implemented in C, designed to efficiently manage memory allocation and deallocation for different sizes of memory blocks.
 
-* Idées d'améliorations
-** TODO En faire une bibliothèque dynamique
-   - capable d'être utilisée à la place du malloc de la bibliothèque C
-** TODO Utiliser git bundle au lieu de Cpack
-   - Rendu complet, compact et avec toutes les informations de
-     contributions.
-   - Risque de rendu vide accru, si les étudiants n'arrivent pas à
-     faire un commit
-   - peut-être plus difficile pour les Phelma qui doivent apprendre
-     git en plus pour pouvoir rendre quelque chose ? C'est peut-être
-     le bon TP pour commencer.
-** TODO discussion avec Vincent, si il est intéréssé ?
+## Project Structure
+
+The project consists of several C files, each responsible for different aspects of memory management:
+
+1. `mem.c`: Main allocation and deallocation functions
+2. `mem_internals.c`: Core functionality for memory management internals
+3. `mem_large.c`: Handles allocation and deallocation of large memory blocks
+4. `mem_medium.c`: Manages medium-sized memory allocations using a buddy system
+5. `mem_small.c`: Deals with small memory allocations using a chunk-based approach
+6. `memshell.c`: Provides a command-line interface for testing the memory allocator
+
+## Key Features
+
+- Support for small, medium, and large memory allocations
+- Efficient memory reuse and management
+- Buddy system for medium-sized allocations
+- Chunk-based allocation for small memory blocks
+- Command-line interface for testing and demonstration
+
+## How It Works
+
+The allocator divides memory requests into three categories:
+
+### Small Allocations (<=SMALLALLOC)
+- Managed in fixed-size chunks
+- Uses a linked list of free chunks for quick allocation and deallocation
+
+### Medium Allocations (>SMALLALLOC and <LARGEALLOC)
+- Implements a buddy system for efficient memory use
+- Supports splitting and merging of memory blocks
+
+### Large Allocations (>=LARGEALLOC)
+- Directly uses `mmap` for large memory requests
+- Provides simple allocation and deallocation of large blocks
+
+## Main Functions
+
+The core functionality is provided by two main functions in `mem.c`:
+
+1. `emalloc(unsigned long size)`: Allocates memory of the specified size
+   - Returns NULL if size is 0
+   - Calls appropriate allocation function based on size
+
+2. `efree(void *ptr)`: Frees the allocated memory
+   - Determines the type of allocation and calls the appropriate deallocation function
+
+## Usage
+
+To use the memory allocator in your C programs:
+
+1. Include the necessary header files (e.g., `mem.h`)
+2. Use `emalloc` for memory allocation and `efree` for deallocation
+
+Example:
+```c
+#include "mem.h"
+
+int main() {
+    void *ptr = emalloc(1024);  // Allocate 1024 bytes
+    // Use the allocated memory
+    efree(ptr);  // Free the allocated memory
+    return 0;
+}
+```
+
+To test the allocator using the provided shell:
+
+1. Compile the project (makefile not provided in the given files)
+2. Run the resulting executable
+3. Use the command-line interface to allocate, free, and manage memory
+
+## Command-Line Interface
+
+The `memshell.c` file provides a simple interface with the following commands:
+
+- `init`: Initialize or reinitialize the allocator
+- `alloc <size>`: Allocate a memory block of the specified size
+- `free <id>`: Free a previously allocated memory block
+- `destroy`: Free the entire allocator
+- `show`: Display initial size and start address
+- `used`: Show a list of currently allocated blocks
+- `help`: Display help information
+- `exit`: Quit the shell
+
+## Notes
+
+- This project is distributed under the GPLv3+ license.
+- The allocator supports up to 5000 allocations between initializations.
+- Memory is marked with magic numbers for integrity checking.
+
+## Future Improvements
+
+- Implement thread-safety for concurrent applications
+- Optimize the buddy system for better performance
+- Add more detailed error handling and reporting
+- Implement memory coalescing for better memory utilization
+
+## License
+
+This project is licensed under the GPLv3+. See the LICENSE file for details.
